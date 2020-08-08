@@ -1,0 +1,12 @@
+zonky.test.database.provider: zonky
+# zonky.test.database.postgres.client.properties.stringtype: unspecified
+zonky.test.database.postgres.initdb.properties.lc-collate: ja_JP.UTF-8
+zonky.test.database.postgres.initdb.properties.lc-monetary: ja_JP.UTF-8
+zonky.test.database.postgres.initdb.properties.lc-numeric: ja_JP.UTF-8
+zonky.test.database.postgres.server.properties.shared_buffers: 512MB
+zonky.test.database.postgres.server.properties.max_connections: 100
+zonky.test.database.postgres.client.properties.currentSchema: public
+
+spring.flyway.enabled: true
+spring.flyway.encoding: UTF-8
+spring.flyway.baseline-version: 1
