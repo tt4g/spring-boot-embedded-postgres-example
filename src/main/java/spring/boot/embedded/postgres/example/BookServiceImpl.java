@@ -32,22 +32,19 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookEntity addBook(String name) {
         // JDBI management transaction.
-        BookEntity bookEntity = this.jdbi.inTransaction(TransactionIsolationLevel.READ_COMMITTED, handle -> {
+        int id = this.jdbi.inTransaction(TransactionIsolationLevel.READ_COMMITTED, handle -> {
             return handle.createUpdate("INSERT INTO book (name) VALUES(:name)")
                 .bind("name", name)
                 .executeAndReturnGeneratedKeys("id")
                 .map((resultSet, context) -> {
-                    // GeneratedKeys and access result set all attributes only supports PostgreSQL.
-                    // See: https://jdbi.org/#_generated_keys
                     int persistedId = resultSet.getInt("id");
-                    String persistedName = resultSet.getString("name");
 
-                    return new BookEntity(persistedId, persistedName);
+                    return persistedId;
                 })
                 .one();
         });
 
-        return bookEntity;
+        return new BookEntity(id, name);
     }
 
 }
