@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class BookServiceImpl implements BookService {
 
     private final Jdbi jdbi;
 
     @Autowired
-    public UserServiceImpl(Jdbi jdbi) {
+    public BookServiceImpl(Jdbi jdbi) {
         this.jdbi = jdbi;
     }
 
@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
     public int count() {
         Handle handle = this.jdbi.open();
 
-        int count = handle.createQuery("SELECT COUNT (*) FROM user")
+        int count = handle.createQuery("SELECT COUNT (*) FROM book")
             .mapTo(int.class)
             .one();
 
@@ -30,10 +30,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity addUser(String name) {
+    public BookEntity addBook(String name) {
         // JDBI management transaction.
-        UserEntity userEntity = this.jdbi.inTransaction(TransactionIsolationLevel.READ_COMMITTED, handle -> {
-            return handle.createUpdate("INSERT INTO user (name) VALUES(:name)")
+        BookEntity bookEntity = this.jdbi.inTransaction(TransactionIsolationLevel.READ_COMMITTED, handle -> {
+            return handle.createUpdate("INSERT INTO book (name) VALUES(:name)")
                 .bind("name", name)
                 .executeAndReturnGeneratedKeys("id")
                 .map((resultSet, context) -> {
@@ -42,12 +42,12 @@ public class UserServiceImpl implements UserService {
                     int persistedId = resultSet.getInt("id");
                     String persistedName = resultSet.getString("name");
 
-                    return new UserEntity(persistedId, persistedName);
+                    return new BookEntity(persistedId, persistedName);
                 })
                 .one();
         });
 
-        return userEntity;
+        return bookEntity;
     }
 
 }

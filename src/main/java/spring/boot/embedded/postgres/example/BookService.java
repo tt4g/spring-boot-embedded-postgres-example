@@ -1,9 +1,9 @@
 package spring.boot.embedded.postgres.example;
 
-public interface UserService {
+public interface BookService {
 
     int count();
 
-    UserEntity addUser(String name);
+    BookEntity addBook(String name);
 
 }

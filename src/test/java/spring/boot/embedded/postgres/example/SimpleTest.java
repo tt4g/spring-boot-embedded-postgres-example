@@ -14,30 +14,30 @@ import static org.assertj.core.api.Assertions.assertThat;
 @FlywayTest
 public class SimpleTest {
 
-    private final UserService userService;
+    private final BookService bookService;
 
     @Autowired
-    public SimpleTest(UserService userService) {
-        this.userService = userService;
+    public SimpleTest(BookService bookService) {
+        this.bookService = bookService;
     }
 
     @Test
     @FlywayTest(locationsForMigrate = "flyway/SimpleTest/count")
     public void count() {
-        int count = this.userService.count();
+        int count = this.bookService.count();
 
         assertThat(count).isEqualTo(3);
     }
 
     @Test
-    public void addUser() {
+    public void addBook() {
         String name = "John Doe";
 
-        UserEntity userEntity = this.userService.addUser(name);
+        BookEntity bookEntity = this.bookService.addBook(name);
 
-        assertThat(userEntity)
+        assertThat(bookEntity)
             .isNotNull()
-            .satisfies(userEntity_ -> assertThat(userEntity_.getName()).isEqualTo(name));
+            .satisfies(bookEntity_ -> assertThat(bookEntity_.getName()).isEqualTo(name));
     }
 
 }
