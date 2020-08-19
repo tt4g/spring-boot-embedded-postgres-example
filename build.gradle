@@ -18,14 +18,7 @@ allprojects {
     }
 
     tasks.withType(JavaCompile) {
-        def javaVersion = JavaVersion.VERSION_11
-        def javaVersionNumber = 11
-
-        assert javaVersion == JavaVersion.toVersion(javaVersionNumber)
-
-        sourceCompatibility = javaVersion
-        targetCompatibility = javaVersion
-        options.release = javaVersionNumber
+        options.release = 11
         options.encoding = "UTF-8"
     }
 
