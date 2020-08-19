@@ -7,7 +7,7 @@ plugins {
 
 ext {
     versions = ext {
-        embeddedDatabaseSpringTestVersion = "1.5.4"
+        embeddedDatabaseSpringTestVersion = "1.5.5"
         flywaySpringTestVersion = "6.4.0"
     }
 }
